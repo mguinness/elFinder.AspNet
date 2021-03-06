@@ -7,7 +7,7 @@
     <Description>elFinder ASP.NET backend</Description>
     <PackageProjectUrl>https://github.com/mguinness/elFinder.AspNet</PackageProjectUrl>
     <Version>1.0.0</Version>
-    <PackageLicenseUrl>https://github.com/mguinness/elFinder.AspNet/raw/main/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/mguinness/elFinder.AspNet/raw/main/LICENSE</PackageLicenseUrl>
     <OutputType>Library</OutputType>
     <IsPackable>true</IsPackable>
   </PropertyGroup>

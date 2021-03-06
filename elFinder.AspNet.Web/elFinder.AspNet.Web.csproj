@@ -7,7 +7,7 @@
     <Company>N/A</Company>
     <Description>Demo Project for elFinder ASP.NET backend</Description>
     <PackageProjectUrl>https://github.com/mguinness/elFinder.AspNet</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/mguinness/elFinder.AspNet/raw/main/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/mguinness/elFinder.AspNet/raw/main/LICENSE</PackageLicenseUrl>
     <Version>1.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
