@@ -1,15 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>a13535c9-0a1e-4ed1-8437-bafcc87a57a9</UserSecretsId>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <Authors>EvgenNoskov, gordon-matt, mguinness</Authors>
-    <Company>N/A</Company>
-    <Description>Demo Project for elFinder ASP.NET backend</Description>
-    <PackageProjectUrl>https://github.com/mguinness/elFinder.AspNet</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/mguinness/elFinder.AspNet/raw/main/LICENSE</PackageLicenseUrl>
-    <Version>1.0.0</Version>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\elFinder.AspNet\elFinder.AspNet.csproj" />
   </ItemGroup>
