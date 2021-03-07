@@ -575,6 +575,7 @@ namespace elFinder.AspNet.Helpers
                 {".txt", "text/plain"},
                 {".u32", "application/octet-stream"},
                 {".uls", "text/iuls"},
+                {".url", "text/uri-list"},
                 {".user", "text/plain"},
                 {".ustar", "application/x-ustar"},
                 {".vb", "text/plain"},

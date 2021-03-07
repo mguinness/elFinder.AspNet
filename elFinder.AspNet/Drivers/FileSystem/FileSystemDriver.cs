@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -250,9 +251,9 @@ namespace elFinder.AspNet.Drivers.FileSystem
                             }
                         }
                     }
-                    catch //(Exception ex)
+                    catch (Exception ex)
                     {
-                        //throw new Exception(entry.FullName, ex);
+                        Trace.TraceError("{0} - {1}", entry.FullName, ex.Message);
                     }
                 }
             }
@@ -608,7 +609,10 @@ namespace elFinder.AspNet.Drivers.FileSystem
                         File.Delete(path.File.FullName);
                     }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Trace.TraceError(ex.Message);
+                }
                 response.Removed.Add(path.HashedTarget);
             }
             return response;
@@ -692,7 +696,7 @@ namespace elFinder.AspNet.Drivers.FileSystem
                     }
                 }
 
-                if (!mimeTypes.Any())
+                if (query != ".")
                 {
                     foreach (var item in await path.Directory.GetDirectoriesAsync(string.Concat("*", query, "*")))
                     {

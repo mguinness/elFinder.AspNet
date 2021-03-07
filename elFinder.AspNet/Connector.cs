@@ -50,8 +50,8 @@ namespace elFinder.AspNet
                     }
                 case "duplicate":
                     {
-                        var targets = await GetFullPathArrayAsync(parameters.GetValueOrDefault("targets[]"));
-                        return await driver.DuplicateAsync(targets);
+                        var paths = await GetFullPathArrayAsync(parameters.GetValueOrDefault("targets[]"));
+                        return await driver.DuplicateAsync(paths);
                     }
                 case "extract":
                     {
@@ -191,13 +191,13 @@ namespace elFinder.AspNet
                     }
                 case "size":
                     {
-                        var paths = new StringValues(parameters.Where(p => p.Key.StartsWith("target")).Select(p => (string)p.Value).ToArray());
-                        return await driver.SizeAsync(await GetFullPathArrayAsync(paths));
+                        var paths = await GetFullPathArrayAsync(parameters.GetValueOrDefault("targets[]"));
+                        return await driver.SizeAsync(paths);
                     }
                 case "tmb":
                     {
-                        var targets = await GetFullPathArrayAsync(parameters.GetValueOrDefault("targets[]"));
-                        return await driver.ThumbsAsync(targets);
+                        var paths = await GetFullPathArrayAsync(parameters.GetValueOrDefault("targets[]"));
+                        return await driver.ThumbsAsync(paths);
                     }
                 case "tree":
                     {
@@ -222,10 +222,10 @@ namespace elFinder.AspNet
         /// Get actual filesystem path by hash
         /// </summary>
         /// <param name="hash">Hash of file or directory</param>
-        public async Task<IFile> GetFileByHashAsync(string hash)
+        public async Task<string> GetPathByHashAsync(string hash)
         {
-            var path = await driver.ParsePathAsync(hash);
-            return !path.IsDirectory ? path.File : null;
+            var path = await driver.ParsePathAsync(hash);            
+            return path.IsDirectory ? path.Directory.FullName + path.RootVolume.DirectorySeparatorChar : path.File.FullName;
         }
 
         public async Task<object> GetThumbnailAsync(/*HttpRequest request, HttpResponse response,*/ string hash)

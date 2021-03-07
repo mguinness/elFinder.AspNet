@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json.Serialization;
@@ -84,8 +85,9 @@ namespace elFinder.AspNet.Models
                             Dimension = $"{dim.Width}x{dim.Height}"
                         };
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        Trace.TraceError(ex.Message);
                         // Fix for non-standard formats
                         // https://github.com/gordon-matt/elFinder.AspNet/issues/36
                         response = new FileModel();
@@ -99,7 +101,7 @@ namespace elFinder.AspNet.Models
 
             response.Read = 1;
             response.Write = volume.IsReadOnly ? (byte)0 : (byte)1;
-            response.Locked = ((volume.LockedFolders != null && volume.LockedFolders.Any(f => f == file.Directory.Name)) || volume.IsLocked) ? (byte)1 : (byte)0;
+            response.Locked = ((volume.LockedFoldersIncludeFiles && volume.LockedFolders != null && volume.LockedFolders.Any(f => f == file.Directory.Name)) || volume.IsLocked) ? (byte)1 : (byte)0;
             response.Name = file.Name;
             response.Size = fileLength;
             response.UnixTimeStamp = (long)(await file.LastWriteTimeUtcAsync - unixOrigin).TotalSeconds;

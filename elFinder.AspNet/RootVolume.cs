@@ -76,7 +76,12 @@ namespace elFinder.AspNet
         /// <summary>
         /// Gets or sets a list of root subfolders that should be locked (user can't remove, rename)
         /// </summary>
-        public List<string> LockedFolders { get; }
+        public List<string> LockedFolders { get; set; }
+
+        /// <summary>
+        /// Gets or sets if files in subfolders should be locked (user can't remove, rename)
+        /// </summary>
+        public bool LockedFoldersIncludeFiles { get; set; }
 
         /// <summary>
         /// Get or sets maximum upload file size. This size is per files in bytes.
