@@ -69,6 +69,9 @@ namespace elFinder.AspNet.Models.Commands
         [JsonPropertyName("uploadMaxSize")]
         public string UploadMaxSize { get; set; }
 
+        [JsonPropertyName("uploadMime")]
+        public UploadMimeModel UploadMime { get; set; }
+
         [JsonPropertyName("url")]
         public string Url { get; set; }
     }
