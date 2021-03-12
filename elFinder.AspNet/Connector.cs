@@ -120,7 +120,7 @@ namespace elFinder.AspNet
                         var paths = await GetFullPathArrayAsync(parameters.GetValueOrDefault("targets[]"));
                         var dst = parameters.GetValueOrDefault("dst");
                         bool cut = parameters.GetValueOrDefault("cut") == "1";
-                        var renames = parameters.GetValueOrDefault("ranames[]");
+                        var renames = parameters.GetValueOrDefault("renames[]");
                         var suffix = parameters.GetValueOrDefault("suffix");
                         return await driver.PasteAsync(await driver.ParsePathAsync(dst), paths, cut, renames, suffix);
                     }

@@ -521,6 +521,15 @@ namespace elFinder.AspNet.Drivers.FileSystem
         public async Task<object> PasteAsync(FullPath dest, IEnumerable<FullPath> paths, bool isCut, IEnumerable<string> renames, string suffix)
         {
             var response = new ReplaceResponseModel();
+
+            foreach (string rename in renames)
+            {
+                var fileInfo = new FileInfo(Path.Combine(dest.Directory.FullName, rename));
+                string destination = Path.Combine(dest.Directory.FullName, $"{Path.GetFileNameWithoutExtension(rename)}{suffix}{Path.GetExtension(rename)}");
+                fileInfo.MoveTo(destination);
+                response.Added.Add(await BaseModel.CreateAsync(new FileSystemFile(destination), dest.RootVolume));
+            }
+
             foreach (var src in paths)
             {
                 if (src.IsDirectory)
