@@ -13,7 +13,7 @@ public class FileSystemController : Controller
 
         var parameters = Request.QueryString.Keys.Cast<string>().ToDictionary(k => k, v => (StringValues)Request.QueryString[v]);
 
-        var result = await connector.ProcessAsync(parameters);
+        var result = (await connector.ProcessAsync(parameters)).Value;
         if (result is FileContent)
         {
             var file = result as FileContent;
@@ -47,11 +47,11 @@ public class FileSystemController : Controller
                     FileName = file.FileName
                 });
             }
-            return Content(JsonSerializer.Serialize(await connector.ProcessAsync(parameters, files)), "application/json");
+            return Content(JsonSerializer.Serialize((await connector.ProcessAsync(parameters, files)).Value), "application/json");
         }
         else
         {
-            return Content(JsonSerializer.Serialize(await connector.ProcessAsync(parameters)), "application/json");
+            return Content(JsonSerializer.Serialize((await connector.ProcessAsync(parameters)).Value), "application/json");
         }
     }
 
@@ -60,7 +60,7 @@ public class FileSystemController : Controller
     {
         var connector = GetConnector();
 
-        var result = await connector.GetThumbnailAsync(hash);
+        var result = (await connector.GetThumbnailAsync(hash)).Value;
         if (result is ImageWithMimeType)
         {
             var file = result as ImageWithMimeType;

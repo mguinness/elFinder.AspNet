@@ -20,8 +20,8 @@ It's easy to log activity with the returned object from `ProcessAsync()` after c
 
 ```C#
 var result = await connector.ProcessAsync(parameters);
-if (result.GetType().GetProperty("error") == null)
-    await LogCmdAsync(parameters["cmd"], result);
+if (result.Succeeded)
+    await LogCmdAsync(parameters["cmd"], result.Value);
 ```
 
 The following method is a basic example of some commands being logged.
