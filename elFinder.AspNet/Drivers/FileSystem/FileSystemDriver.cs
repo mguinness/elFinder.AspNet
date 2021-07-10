@@ -229,6 +229,12 @@ namespace elFinder.AspNet.Drivers.FileSystem
                         string file = Path.Combine(rootPath, entry.FullName)
                              .Replace("/", separator).Replace("\\", separator);
 
+                        string destPath = Path.GetFullPath(file);
+                        if (!destPath.StartsWith(rootPath, StringComparison.OrdinalIgnoreCase))
+                        {
+                            throw new NotSupportedException($"Entry '{entry.FullName}' is outside of the destination directory.");
+                        }
+
                         if (file.EndsWith(separator)) //directory
                         {
                             var dir = new FileSystemDirectory(file);
@@ -636,12 +642,22 @@ namespace elFinder.AspNet.Drivers.FileSystem
             if (path.IsDirectory)
             {
                 var newPath = new FileSystemDirectory(Path.Combine(path.Directory.Parent.FullName, name));
+                string destPath = Path.GetFullPath(newPath.FullName);
+                if (!destPath.StartsWith(path.RootVolume.RootDirectory, StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new NotSupportedException($"Entry '{name}' is outside of the home directory.");
+                }
                 Directory.Move(path.Directory.FullName, newPath.FullName);
                 response.Added.Add(await BaseModel.CreateAsync(newPath, path.RootVolume));
             }
             else
             {
                 var newPath = new FileSystemFile(Path.Combine(path.File.DirectoryName, name));
+                string destPath = Path.GetFullPath(newPath.FullName);
+                if (!destPath.StartsWith(path.RootVolume.RootDirectory, StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new NotSupportedException($"Entry '{name}' is outside of the home directory.");
+                }
                 File.Move(path.File.FullName, newPath.FullName);
                 response.Added.Add(await BaseModel.CreateAsync(newPath, path.RootVolume));
             }
